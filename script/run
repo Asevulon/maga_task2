@@ -1,0 +1,50 @@
+#!/bin/bash
+
+set -euo pipefail
+
+source $TASK2_SCRIPT/script_basics.sh
+
+BUILD_TYPE="Release"
+if [[ $# -gt 0 ]]; then
+    BUILD_TYPE="$1"
+fi
+
+BUILD_PATH="build"
+BUILD_PATH_TYPED="${BUILD_PATH}/${BUILD_TYPE}"
+PARALLEL=4
+
+LINE="==============================================="
+
+build(){
+    cmake \
+        -S . \
+        -B $BUILD_PATH_TYPED \
+        -DCMAKE_C_COMPILER=gcc-13 \
+        -DCMAKE_CXX_COMPILER=g++-13 \
+        -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+        
+
+    cmake \
+        --build $BUILD_PATH_TYPED \
+        --parallel $PARALLEL
+}
+
+run(){
+    TARGET=$1
+    echo -e "\nRunning ${TARGET}\n"
+    echo $LINE
+    echo ""
+    $TARGET
+    echo ""
+    echo $LINE
+    echo -e "\nDone\n"
+}
+
+mkdir -p $PLOT_PATH
+mkdir -p $PLOT_DATA_PATH
+mkdir -p $LOG_PATH
+
+#build &>"${LOG_PATH}/${BUILD_LOG_NAME}"
+#run "${BUILD_PATH_TYPED}/Task2" 2>"${LOG_PATH}/${RUN_LOG_NAME}"
+build
+run "${BUILD_PATH_TYPED}/Task2"

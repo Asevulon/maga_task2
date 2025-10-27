@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -euo pipefail
+
+source $TASK2_SCRIPT/script_basics.sh
+
+clear $PLOT_PATH
+clear $PLOT_DATA_PATH
+clear $LOG_PATH
