@@ -34,22 +34,28 @@ void print_plot_data(const GnuplotParams &p)
 
     size_t max_size = 0;
 
+    std::string header_line;
+
     for (const auto &line : p.lines)
     {
-        file << "\"x_" << line.name << "\" "
-             << "\"" << line.name << "\" ";
+        header_line +=
+            "\"x_" + line.name + "\" " + "\"" + line.name + "\" ";
+
         if (max_size < line.data.size())
             max_size = line.data.size();
     }
-    file << std::endl;
+    header_line.back() = '\n';
+    file << header_line;
 
     for (size_t i = 0; i < max_size; ++i)
     {
+        std::string data_line;
         for (const auto &line : p.lines)
         {
-            file << gnuplot_extract_data_str(line, i) << " ";
+            data_line += gnuplot_extract_data_str(line, i) + " ";
         }
-        file << std::endl;
+        data_line.back() = '\n';
+        file << data_line;
     }
     file.close();
 }
@@ -82,7 +88,8 @@ std::string GnuplotParams::cmd_line() const
          << gnuplot_param("width", width, " ")
          << gnuplot_param("height", height, " ")
          << gnuplot_param_str("x_label", x_label, " ")
-         << gnuplot_param_str("y_label", y_label)
+         << gnuplot_param_str("y_label", y_label, " ")
+         << gnuplot_param_str("gui_mode", gui_mode)
          << gnuplot_line_suffix();
     return line.str();
 }
@@ -119,7 +126,8 @@ std::string GnuplotMultiParams::cmd_line() const
         << gnuplot_param("width", width, " ")
         << gnuplot_param("height", height, " ")
         << gnuplot_long_param_str("xlabels", x_label, " ")
-        << gnuplot_long_param_str("ylabels", y_label)
+        << gnuplot_long_param_str("ylabels", y_label, " ")
+        << gnuplot_param_str("gui_mode", gui_mode)
         << gnuplot_line_multiplot_suffix();
 
     return cmd_line.str();

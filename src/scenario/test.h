@@ -23,5 +23,4 @@ void test_scenario(const Config &conf)
 
     // draw_plot(plot);
     draw_plot(multiplot);
-    show_pic("test");
 }

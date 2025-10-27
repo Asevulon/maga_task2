@@ -76,3 +76,4 @@ inline int show_pic(const std::string &path, const std::string &pref = "plot/", 
     return exec("eog " + pref + "'" + path + "'" + post + " >/dev/null 2>&1 &");
 }
 inline auto show_pic(const GnuplotParams &p) { return show_pic(p.title); }
+inline auto show_pic(const GnuplotMultiParams &p) { return show_pic(p.name); }

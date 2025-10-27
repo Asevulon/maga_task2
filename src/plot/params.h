@@ -14,6 +14,7 @@ public:
     string x_label = "X";
     string y_label = "Y";
     string out_ext = ".png";
+    string gui_mode = "1";
 
     std::vector<GnuplotLine> lines;
 
@@ -29,6 +30,7 @@ public:
     string name = "default";
     string out_ext = ".png";
     string out_dir = "plot/";
+    string gui_mode = "1";
 
     std::vector<GnuplotParams> plots;
 
