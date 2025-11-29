@@ -31,10 +31,10 @@ inline std::vector<std::mt19937> create_random(uint64_t n)
     return generators;
 }
 
-inline std::string random_bits(std::mt19937 &gen, const size_t &size)
+inline std::vector<int> random_bits(std::mt19937 &gen, const size_t &size)
 {
-    std::uniform_int_distribution<uint8_t> dist('0', '1');
-    std::string bits;
+    std::uniform_int_distribution<uint8_t> dist(0, 1);
+    std::vector<int> bits;
     bits.resize(size);
     for (uint64_t i = 0; i < size; ++i)
     {

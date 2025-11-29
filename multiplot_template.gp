@@ -40,6 +40,3 @@ do for [i = 1:N] {
 }
 
 unset multiplot
-
-if (gui_mode)
-    pause -1 "Нажмите Enter для выхода"

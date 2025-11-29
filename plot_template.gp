@@ -9,6 +9,7 @@ if (!exists("gui_mode")) gui_mode = 0
 
 if (gui_mode) {
     set terminal qt size width, height
+    set mouse
 } else {
     set terminal pngcairo size width, height font "Sans,12"
     set output output_file
@@ -26,6 +27,3 @@ ncols = STATS_columns
 nlines = int(ncols / 2)
 
 plot for [i=1:nlines] datafile using (column(2*i-1)):(column(2*i)) with lines title columnheader(2*i)
-
-if (gui_mode)
-    pause -1 "Нажмите Enter для выхода"

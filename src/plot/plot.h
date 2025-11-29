@@ -51,7 +51,7 @@ inline std::string gnuplot_long_param_str(const std::string name, ContainerType 
 
 constexpr inline const char *gnuplot_line_prefix()
 {
-    return "gnuplot -e \"";
+    return "gnuplot -p -e \"";
 }
 constexpr inline const char *gnuplot_line_suffix()
 {
@@ -59,7 +59,7 @@ constexpr inline const char *gnuplot_line_suffix()
 }
 constexpr inline const char *gnuplot_line_multiplot_suffix()
 {
-    return "\" multiplot_template.gp";
+    return "\" multiplot_template.gp &";
 }
 
 inline std::string gnuplot_data_str(const Point &p)
