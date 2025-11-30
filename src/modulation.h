@@ -5,7 +5,8 @@
 #include "cmplx/cmplx.h"
 #include "config.h"
 #include "general/general.h"
-#include "gold.h"
+
+using bitseq = std::vector<int>;
 
 class SourceParams
 {
@@ -63,7 +64,7 @@ inline std::vector<cmplx> generate_fm4(
     double Tb,
     double fs)
 {
-    std::vector<cmplx> res(bits.size() * fs / Tb / 2);
+    std::vector<cmplx> res;
     return apply_fm4(res, bits, Tb, fs);
 }
 

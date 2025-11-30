@@ -140,3 +140,15 @@ inline void apply_abs(const std::vector<cmplx> &src, std::vector<double> &res)
         res[i] = abs(src[i]);
     }
 }
+
+inline void correlation_fft(std::vector<cmplx> &x, std::vector<cmplx> &y, std::vector<cmplx> &r)
+{
+    fourea(x, -1);
+    fourea(y, -1);
+    size_t size = x.size();
+    for (size_t i = 0; i < size; ++i)
+    {
+        r[i] = x[i] * conj(y[i]);
+    }
+    fourea(r, 1);
+}

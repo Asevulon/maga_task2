@@ -1,11 +1,33 @@
-if (!exists("datafiles")) datafiles = "data.txt"
-if (!exists("output_file")) output_file = "graph.png"
-if (!exists("titles")) titles = "default_title"
-if (!exists("width")) width = 800
-if (!exists("height")) height = 600
-if (!exists("xlabels")) xlabels = "X"
-if (!exists("ylabels")) ylabels = "Y"
-if (!exists("gui_mode")) gui_mode = 0
+if (exists("params_file")) {
+    load params_file
+} else {
+    datafiles = ["data.txt"]
+    titles = ["default_title"]
+    xlabels = ["X"]
+    ylabels = ["Y"]
+    output_file = "graph.png"
+    width = 800
+    height = 600
+    gui_mode = 0
+}
+
+N = |datafiles|
+
+if (|titles| < N) {
+    do for [i = |titles|+1:N] {
+        titles = titles._["default_title"]
+    }
+}
+if (|xlabels| < N) {
+    do for [i = |xlabels|+1:N] {
+        xlabels = xlabels._["X"]
+    }
+}
+if (|ylabels| < N) {
+    do for [i = |ylabels|+1:N] {
+        ylabels = ylabels._["Y"]
+    }
+}
 
 if (gui_mode) {
     set terminal qt size width, height
@@ -15,15 +37,13 @@ if (gui_mode) {
     set output output_file
 }
 
-N = words(datafiles)
-
 set multiplot layout N,1 rowsfirst
 
 do for [i = 1:N] {
-    df   = word(datafiles, i)
-    tit  = word(titles, i)
-    xl   = word(xlabels, i)
-    yl   = word(ylabels, i)
+    df   = datafiles[i]
+    tit  = titles[i]
+    xl   = xlabels[i]
+    yl   = ylabels[i]
 
     set title tit
     set xlabel xl
