@@ -121,8 +121,8 @@ void test_scenario(const Config &conf)
 
     auto plot_c = plot;
     plot_c.title = "Корреляция между сигналом и фильтрами";
-    plot_b.x_label = "Время, с";
-    plot_b.y_label = "Значение корреляции";
+    plot_c.x_label = "Время, с";
+    plot_c.y_label = "Значение корреляции";
     plot_c.lines = gm_l;
 
     GnuplotMultiParams multiplot;
