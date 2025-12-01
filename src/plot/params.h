@@ -30,6 +30,7 @@ public:
     string name = "default";
     string out_ext = ".png";
     string out_dir = "plot/";
+    string out_script_dir = "gnuplot_out_script/";
     string gui_mode = "1";
 
     std::vector<GnuplotParams> plots;

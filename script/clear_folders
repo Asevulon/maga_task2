@@ -7,3 +7,4 @@ source $TASK2_SCRIPT/script_basics.sh
 clear $PLOT_PATH
 clear $PLOT_DATA_PATH
 clear $LOG_PATH
+clear $PLOT_OUT_SCRIPT_PATH

@@ -4,6 +4,7 @@ set -euo pipefail
 
 PLOT_PATH="plot"
 PLOT_DATA_PATH="data"
+PLOT_OUT_SCRIPT_PATH="gnuplot_out_script"
 
 LOG_PATH="log"
 BUILD_LOG_NAME="build.txt"

@@ -49,6 +49,25 @@ inline std::string gnuplot_long_param_str(const std::string name, ContainerType 
     result.back() = ']';
     return result + ";" + endline;
 }
+template <typename ContainerType>
+inline std::string gnuplot_array(const std::string name, ContainerType &&src)
+{
+    std::string res =
+        "array " + name + "[" + std::to_string(src.size()) + "] = [";
+    for (auto &item : src)
+        res += "'" + item + "', ";
+    res.erase(res.end() - 2);
+    res += "]";
+    return res;
+}
+inline std::string gnuplot_var(const std::string name, const std::string val)
+{
+    return name + " = " + val;
+}
+inline std::string gnuplot_str(const std::string name, const std::string val)
+{
+    return name + " = '" + val + "'";
+}
 
 constexpr inline const char *gnuplot_line_prefix()
 {

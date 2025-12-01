@@ -99,8 +99,10 @@ std::string GnuplotMultiParams::cmd_line() const
     using std::string;
     using std::vector;
 
-    string out_name = endline_check(name) + out_ext;
+    string safe_name = endline_check(name);
+    string out_name = safe_name + out_ext;
     string out_path = safe_path(out_dir, out_name);
+    string out_script_path = safe_path(out_script_dir, safe_name) + ".gp";
 
     vector<string> datafile;
     vector<string> custom_title;
@@ -117,17 +119,22 @@ std::string GnuplotMultiParams::cmd_line() const
         y_label.emplace_back(p.y_label);
     }
 
+    std::ofstream out_script_file(out_script_path);
+    out_script_file
+        << gnuplot_array("datafiles", datafile) << std::endl
+        << gnuplot_str("output_file", out_path) << std::endl
+        << gnuplot_array("titles", custom_title) << std::endl
+        << gnuplot_var("width", width) << std::endl
+        << gnuplot_var("height", height) << std::endl
+        << gnuplot_array("xlabels", x_label) << std::endl
+        << gnuplot_array("ylabels", y_label) << std::endl
+        << gnuplot_str("gui_mode", gui_mode) << std::endl;
+    out_script_file.close();
+
     std::stringstream cmd_line;
     cmd_line
         << gnuplot_line_prefix()
-        << gnuplot_long_param_str("datafiles", datafile, " ")
-        << gnuplot_param_str("output_file", out_path, " ")
-        << gnuplot_long_param_str("titles", custom_title, " ")
-        << gnuplot_param("width", width, " ")
-        << gnuplot_param("height", height, " ")
-        << gnuplot_long_param_str("xlabels", x_label, " ")
-        << gnuplot_long_param_str("ylabels", y_label, " ")
-        << gnuplot_param_str("gui_mode", gui_mode)
+        << gnuplot_param_str("params_file", out_script_path)
         << gnuplot_line_multiplot_suffix();
 
     return cmd_line.str();
