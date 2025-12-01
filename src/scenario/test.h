@@ -4,6 +4,7 @@
 #include "plot/plot_line.h"
 #include "noise/noise.h"
 #include "gold.h"
+#include "general/colors.h"
 
 template <typename T>
 inline std::string print(const std::vector<T> &src, const std::string name = "")
@@ -47,10 +48,13 @@ inline std::string compare(const std::string &s1, const std::string &s2, bool &o
             if (s1[i] == s2[i])
             {
                 res += s1[i];
-                out = 1;
+                out = out & 1;
             }
             else
+            {
+                res += '-';
                 out = 0;
+            }
         }
         else
         {
@@ -84,15 +88,15 @@ void test_scenario(const Config &conf)
     bool out = 0;
     auto comp_str = compare(init_bits, found_bits_str, out);
     if (out)
-        std::cout << "Найденные биты совпали" << std::endl;
+        std::cout << GREEN << "Найденные биты совпали" << RESET << std::endl;
     else
-        std::cout << "Найденные биты не совпали" << std::endl;
+        std::cout << RED << "Найденные биты не совпали" << RESET << std::endl;
     std::cout << "Исходные биты:  " << init_bits << std::endl
               << "Найденные биты: " << found_bits_str << std::endl
               << "Сравнение:      " << comp_str << std::endl;
 
     // графики
-    auto fm4_l = nline(fm4_keys, fm4_n);
+    auto fm4_l = line("Исходный сигнал", fm4_keys, fm4_n);
 
     GnuplotLineCmplx gm_l;
     for (auto &g : gold_mapper)
@@ -110,15 +114,19 @@ void test_scenario(const Config &conf)
     plot.height = w.height;
 
     auto plot_b = plot;
-    plot_b.title = init_bits;
+    plot_b.title = "Исследуемый сигнал";
+    plot_b.x_label = "Время, с";
+    plot_b.y_label = "Амплитуда сигнала";
     plot_b.lines = {fm4_l};
 
     auto plot_c = plot;
     plot_c.title = "Корреляция между сигналом и фильтрами";
+    plot_b.x_label = "Время, с";
+    plot_b.y_label = "Значение корреляции";
     plot_c.lines = gm_l;
 
     GnuplotMultiParams multiplot;
-    multiplot.name = "test";
+    multiplot.name = "Восстановление исходной информации путем согласованной фильтрации";
     multiplot.plots = {
         plot_b,
         plot_c,

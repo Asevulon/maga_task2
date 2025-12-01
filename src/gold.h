@@ -167,8 +167,11 @@ inline bitseq find_bits(const std::map<BitPair, GoldHandler> &m, const SourcePar
         BitPair max_key;
         for (const auto &[key, val] : m)
         {
+            int l = i - bps / 2;
+            if (l < 0)
+                l = 0;
             double local_max = *std::max_element(
-                val.r.begin() + i, val.r.begin() + i + bps);
+                val.r.begin() + l, val.r.begin() + i + bps / 2);
             if (local_max > max)
             {
                 max = local_max;

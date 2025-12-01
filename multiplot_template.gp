@@ -9,6 +9,7 @@ if (exists("params_file")) {
     width = 800
     height = 600
     gui_mode = 0
+    window_title = "default"
 }
 
 N = |datafiles|
@@ -30,7 +31,7 @@ if (|ylabels| < N) {
 }
 
 if (gui_mode) {
-    set terminal qt size width, height
+    set terminal qt size width, height title window_title
     unset mouse
 } else {
     set terminal pngcairo size width, height font "Sans,12"

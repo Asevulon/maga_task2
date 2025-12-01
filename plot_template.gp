@@ -8,8 +8,7 @@ if (!exists("y_label")) y_label = "Y"
 if (!exists("gui_mode")) gui_mode = 0
 
 if (gui_mode) {
-    set terminal qt size width, height
-    set mouse
+    set terminal qt size width, height title custom_title
 } else {
     set terminal pngcairo size width, height font "Sans,12"
     set output output_file

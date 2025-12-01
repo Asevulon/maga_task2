@@ -53,11 +53,24 @@ template <typename ContainerType>
 inline std::string gnuplot_array(const std::string name, ContainerType &&src)
 {
     std::string res =
-        "array " + name + "[" + std::to_string(src.size()) + "] = [";
-    for (auto &item : src)
-        res += "'" + item + "', ";
-    res.erase(res.end() - 2);
-    res += "]";
+        "array " + name + "[" + std::to_string(src.size()) + "]\n";
+    for (size_t i = 0; i < src.size(); ++i)
+    {
+        res +=
+            name + "[" + std::to_string(i + 1) + "] = " + src[i] + "\n";
+    }
+    return res;
+}
+template <typename ContainerType>
+inline std::string gnuplot_str_array(const std::string name, ContainerType &&src)
+{
+    std::string res =
+        "array " + name + "[" + std::to_string(src.size()) + "]\n";
+    for (size_t i = 0; i < src.size(); ++i)
+    {
+        res +=
+            name + "[" + std::to_string(i + 1) + "] = \"" + src[i] + "\"\n";
+    }
     return res;
 }
 inline std::string gnuplot_var(const std::string name, const std::string val)

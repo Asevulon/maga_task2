@@ -78,7 +78,7 @@ inline std::vector<double> generate_keys(
     double Tb,
     double fs)
 {
-    size_t size = bits.size() * fs / Tb / 2;
+    size_t size = bits.size() * fs / Tb;
     std::vector<double> res(size);
     for (size_t i = 0; i < size; ++i)
         res[i] = i / fs;

@@ -121,14 +121,15 @@ std::string GnuplotMultiParams::cmd_line() const
 
     std::ofstream out_script_file(out_script_path);
     out_script_file
-        << gnuplot_array("datafiles", datafile) << std::endl
+        << gnuplot_str_array("datafiles", datafile) << std::endl
         << gnuplot_str("output_file", out_path) << std::endl
-        << gnuplot_array("titles", custom_title) << std::endl
+        << gnuplot_str_array("titles", custom_title) << std::endl
         << gnuplot_var("width", width) << std::endl
         << gnuplot_var("height", height) << std::endl
-        << gnuplot_array("xlabels", x_label) << std::endl
-        << gnuplot_array("ylabels", y_label) << std::endl
-        << gnuplot_str("gui_mode", gui_mode) << std::endl;
+        << gnuplot_str_array("xlabels", x_label) << std::endl
+        << gnuplot_str_array("ylabels", y_label) << std::endl
+        << gnuplot_str("gui_mode", gui_mode) << std::endl
+        << gnuplot_str("window_title", name) << std::endl;
     out_script_file.close();
 
     std::stringstream cmd_line;
