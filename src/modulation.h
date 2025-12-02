@@ -29,6 +29,15 @@ public:
         auto rnd = create_random(1);
         bits = random_bits(rnd.front(), s["Число бит"]);
     }
+    SourceParams(const Config &c, std::mt19937 &rnd)
+    {
+        auto s = c["Исходный сигнал"];
+        Tb = s["Скорость передачи данных, бит/с"];
+        fs = 1000. * s["Частота дискретизации сигнала, кГц"].get<double>();
+        noise = s["Отношение сигнал/шум, дБ"];
+
+        bits = random_bits(rnd, s["Число бит"]);
+    }
 };
 
 inline std::vector<cmplx> &

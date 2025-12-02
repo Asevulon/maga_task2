@@ -11,6 +11,7 @@ class NoiseParams : public SourceParams
 public:
     NoiseParams() {}
     NoiseParams(const Config &c) : SourceParams(c) {}
+    NoiseParams(const SourceParams &s) : SourceParams(s) {}
 };
 
 std::vector<double> generate_white_noise(size_t size);
